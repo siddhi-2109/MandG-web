@@ -9,6 +9,7 @@ const Login = () => {
 
 const [email, setEmailId] =useState("kalam@gmail.com");
 const [password, setPassword] =useState("Kalam@123");
+const[error , setError] = useState("")
 const dispatch = useDispatch();
 const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const handleLogin = async (e) =>{
     dispatch(addUser(res.data));
      return navigate("/");
 }  catch(err){
-    console.error(err);
+    setError(err?.response?.data|| "somethng went wrong");
    }
 };
 
@@ -69,6 +70,9 @@ const handleLogin = async (e) =>{
               className="input input-bordered w-full"
                onChange={(e) => setPassword(e.target.value)}
             />
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+             
+
             <button type ="button"
             className="btn btn-primary w-full mt-2" 
             onClick={handleLogin}>
